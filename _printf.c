@@ -29,7 +29,7 @@ char *(get_function(char n))
 }
 /* Buffer management functions-- if they can be compounded into a single function that would be prime*/
 /**
-* make_buffer: create a buffer to hold a string until ready for printing 
+* make_buffer - create a buffer to hold a string until ready for printing 
 * Return: pointer to the created buffer
 */
 char *make_buffer(void)
@@ -60,7 +60,7 @@ void print_buffer(char *buffer, int length, va_list arguments)
 	va_end(arguments);
 }
 /**
-* buffer_dealer: when writing over buffer space, prints everything 
+* buffer_dealer - when writing over buffer space, prints everything 
 * and then reverts length to zero and starts writing at buffer start
 * @buffer: the buffer 
 * @length: length of string
