@@ -1,26 +1,26 @@
 #include "holberton.h"
 
-#if 0
 /**
 * get_function - get the function
 * @n: identifier for function
 * Return: function pointer
 */
-char *(get_function(char n))
+char *(*get_function(char n))(va_list)
 { 
 	int x  = 0; /*for iteration*/ 
 	func_t func_table[] = {
-		{'c', format_char},
+		/* {'c', format_char}, */
 		{'s', format_string},
-		{'%', format_percent},
-		{'d', format_decimal},
-		{'i', format_decimal},
-		{'b', format_binary},
-		{'R', format_rot13},
-		{'o', format_octal},
+		/* {'%', format_percent}, */
+		/* {'d', format_decimal}, */
+		/* {'i', format_decimal}, */
+		/* {'b', format_binary}, */
+		/* {'R', format_rot13}, */
+		/* {'o', format_octal}, */
+		{'\0', NULL}
 	};
 	/*"type/function" to be defined in header, nomenclature to be settled on with JM*/
-	while (func_table[x].type != '0')
+	while (func_table[x].type != '\0')
 	{
 		if (func_table[x].type == n)
 			return(func_table[x].function);
@@ -28,6 +28,7 @@ char *(get_function(char n))
 	}
 	return (NULL);
 }
+#if 0
 /* Buffer management functions-- if they can be compounded into a single function that would be prime*/
 /**
 * make_buffer - create a buffer to hold a string until ready for printing 
@@ -115,11 +116,10 @@ int _printf(const char *format, ...)
  * of a format specification, or to send them directly to the buffer;
  * using a char because they're small and it only needs the value 0 or 1 */
 	char parse_format_mode = 0;
-/* Storage for the return value of get_function() so it can be used */
-	/* char (*format_function) = NULL; */
+/* Storage for the return value of get_function() so it can be called */
+	char *(*format_function)(va_list) = NULL;
 /* formatted result of any format function */
 	char *formatted_string;
-
 
 	va_start(arguments, format);
 	/* iterate over format string and search for format specifications */
@@ -145,8 +145,8 @@ int _printf(const char *format, ...)
 		{
 		/* Lookup and call format specifier interpreter func using get_function */
 	        /* Whichever function gets called should return a formatted string */	       
-			/* format_function = get_function(format[x]); */
-			/* formatted_string = format_function(arguments); */
+			format_function = get_function(format[x]);
+			formatted_string = format_function(arguments);
 /* That string goes to the buffer to be printed */
 			output(formatted_string);
 		/* Formatting complete, deactivate format mode */
