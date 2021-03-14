@@ -1,5 +1,6 @@
 #include "holberton.h"
 
+#if 0
 /**
 * get_function - get the function
 * @n: identifier for function
@@ -36,21 +37,22 @@ char *make_buffer(void)
 {
 	char *buffer;
 
-	buffer = malloc(sizeof(char * 1024);
-			if (buffer == NULL)
-			return(NULL);
-			return(buffer);
+	buffer = malloc(sizeof(char * 1024));
+	if (buffer == NULL)
+		return(NULL);
+	return (buffer);
 }
-/**             
+
+/**
 * print_buffer - prints the buffer, reallocates, and frees
 * @buffer: buffer
-* @length: length of the string 
+* @length: length of the string
 * @arguments: va_list
 */
 void print_buffer(char *buffer, int length, va_list arguments)
 {
 	char *buffer;
-	
+
 	/*realloc for correct size, no overflow*/
 	buffer = realloc(buffer, length);
 	/*print*/
@@ -59,10 +61,11 @@ void print_buffer(char *buffer, int length, va_list arguments)
 	free(buffer);
 	va_end(arguments);
 }
+
 /**
-* buffer_dealer - when writing over buffer space, prints everything 
+* buffer_dealer - when writing over buffer space, prints everything
 * and then reverts length to zero and starts writing at buffer start
-* @buffer: the buffer 
+* @buffer: the buffer
 * @length: length of string
 * Return: position
 */
@@ -75,32 +78,80 @@ int buffer_dealer(char *buffer, int length)
 	}
 	return (length);
 }
+#endif
+
+/**
+ * output - a temporary function in place of buffer functions to test _printf
+ * @string: any string be buffered before writing to output
+ * Return: Number of bytes copied to the buffer
+ */
+int output(char *string)
+{
+	/* Character index */
+	int i;
+
+	for (i = 0; string[i]; i++)
+	{
+		write(1, string + i, 1);
+	}
+	return (i);
+}
+
 /**
 * _printf - manages sub-functions, returns number of bytes
-* format - the format to be executed on a string
-* Return - number of bytes, output printed string
+* @format: the format to be executed on a string
+* Return: number of bytes, output printed string
 */
 int _printf(const char *format, ...)
 {
 	/* Make buffer */
 	/*char buffer[1024];*/
-	/* Number of bytes printed */
-	int byte_count;
-	int x; 			/* Iterator for format string */
+/* Number of bytes printed */
+	int byte_count = 0;
+/* Iterator for format string */
+	int x;
 	va_list arguments;
-	va_start(arguments, format);
+/* A flag to tell the loop whether to interpret the following characters as part
+ * of a format specification, or to send them directly to the buffer;
+ * using a char because they're small and it only needs the value 0 or 1 */
+	char parse_format_mode = 0;
+/* Storage for the return value of get_function() so it can be used */
+	/* char (*format_function) = NULL; */
+/* formatted result of any format function */
+	char *formatted_string;
 
+
+	va_start(arguments, format);
 	/* iterate over format string and search for format specifications */
 	for (x = 0; format[x]; x++)
 	{
-		if (format[x] == '%')
+		if (!parse_format_mode)
+		{
+			if (format[x] == '%')
+			{
+				/* '%' indicates a format specification; Activate format mode,
+				 * then continue to the next char */
+				parse_format_mode = 1;
+				continue;
+			}
+			else 	/* for all other characters, output them */
+			{
+				/* output needs a pointer to a char, not the actual char */
+				/* output(format + x); */
+				write(1, format + x, 1);
+			}
+		}
+		if (parse_format_mode)
 		{
 		/* Lookup and call format specifier interpreter func using get_function */
-	        /* Whichever function gets called should return a formatted string */
-		/* That string goes to the output */
+	        /* Whichever function gets called should return a formatted string */	       
+			/* format_function = get_function(format[x]); */
+			/* formatted_string = format_function(arguments); */
+/* That string goes to the buffer to be printed */
+			output(formatted_string);
+		/* Formatting complete, deactivate format mode */
+			parse_format_mode = 0;
 		}
-		/* Move stuff to buffer */
-		/* output( string ); */
 	}
 
 	va_end(arguments);
