@@ -5,10 +5,10 @@
 #include <unistd.h> 		/* write */
 
 int _printf(const char *format, ...);
- typedef struct functions
+typedef struct functions
 {
 	 char letter;
-	 void(*f)();
+	 void (*f)();
 
-} argument_t;
+} func_t;
 #endif	/* HOLBERTON_H */
