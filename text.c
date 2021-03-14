@@ -1,4 +1,5 @@
 #include "holberton.h"
+#if 0
 /**
 * format_rot13 - encodes a string in ROT13
 * @string: target string
@@ -37,4 +38,15 @@ int format_rot13(va_list string)
 		write(1, &encoded_str[x], 1);
 	free(encoded_str);
 	return (length);
+}
+#endif	/* temporary exclusion of ROT13 */
+/**
+ * format_string - Prints an argument as a string
+ * @string: String argument
+ * Return: Pointer to string
+ */
+char *format_string(va_list argument)
+{
+	char *string = va_arg(argument, char *);
+	return (string);
 }
