@@ -41,6 +41,17 @@ int format_rot13(va_list string)
 }
 #endif	/* temporary exclusion of ROT13 */
 /**
+* format_char: prints a char arg
+* @argument: the arg being passed
+* Return: pointer to char
+*/
+char *format_char(va_list argument)
+{
+	char *c = va_arg(c);
+	return (c);
+}
+
+/**
  * format_string - Prints an argument as a string
  * @string: String argument
  * Return: Pointer to string
@@ -50,3 +61,4 @@ char *format_string(va_list argument)
 	char *string = va_arg(argument, char *);
 	return (string);
 }
+
