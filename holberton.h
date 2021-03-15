@@ -5,7 +5,7 @@
 #include <unistd.h>	/* write */
 /*main printing functions*/
 char *(*getfunction(char n))(va_list);
-int output(char *string, char *buffer, int buffer_size)
+int output(char *string, char *buffer, int buffer_size);
 int _printf(const char *format, ...);
 /**
 * struct functions - struct for calling functions
