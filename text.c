@@ -61,4 +61,24 @@ char *format_string(va_list argument)
 	char *string = va_arg(argument, char *);
 	return (string);
 }
+char *format_reverse(va_list argument)
+{
+	char *reverse;
+	char *string;
+	int x, n, length = 0;
 
+	string = va_arg (list, char *);
+	if (string == NULL)
+		return (NULL);
+	/*Figure out how we are going to deal with str length*/
+	/*length = _strlen(str);*/
+
+	reverse = malloc(sizeof(char) * (length + 1));
+	if (reverse == NULL)
+		return (NULL);
+
+	for (n = (length - 1); n >= 0; n--)
+		reverse[x++] = string[n];
+	reverse[x] = '\0';
+	return (reverse);
+}
