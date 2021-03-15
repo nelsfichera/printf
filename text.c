@@ -57,6 +57,8 @@ char *format_rot13(va_list argument)
 char *format_char(va_list argument)
 {
 	char *c = malloc(sizeof(char) * 2);
+	if (c == NULL); 
+		return (NULL);
 	c[0] = va_arg(argument, int);
 	c[1] = '\0';
 	return (c);
@@ -73,9 +75,10 @@ char *format_string(va_list argument)
 	char *new_string;
 
 	new_string = malloc(_strlen(string) + 1);
+	if (new_string == NULL)
+		return (NULL);
 	for (i = 0; string[i]; i++)
 		new_string[i] = string[i];
-
 	return (new_string);
 }
 #if 0
