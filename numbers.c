@@ -79,3 +79,34 @@ char *format_octal(va_list argument)
 	octal[x] = '\0';
 	return (octal);
 }
+/**
+ * format_decimal - converts an int to a string
+ * @argument: pointer to va_list arg which will be interpreted as an int
+ * Return: string format integer
+ */
+char *format_decimal(va_list argument)
+{
+	int integer = va_arg(argument, int);
+	int digits, temp = integer;
+	char *formatted;
+
+	for (digits = 0; temp != 0; digits++)
+		temp /= 10;
+
+	if (integer <= 0)
+		digits++; 	/* Negative sign or count zero as one digit */
+
+	formatted = malloc(digits + 1); /* +1 for Null byte */
+	if (!formatted)
+		return (NULL);
+
+	formatted[digits--] = '\0'; /* Set null byte at the end of the string */
+	for (digits; digits >= 0; digits--)
+	{
+		temp = integer % 10;
+		formatted[digits] = temp;
+		integer /= 10;
+	}
+
+	return (formatted);
+}
