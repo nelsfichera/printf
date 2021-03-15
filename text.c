@@ -1,42 +1,51 @@
 #include "holberton.h"
 #if 0
 /**
+* _strlen - gets the length of a string
+* @string: target string
+* Return: length of the string
+*/
+int _strlen(char *string)
+{
+	int x = 0;
+
+	while (*(string + x))
+		x++;
+	return (x);
+}
+/**
 * format_rot13 - encodes a string in ROT13
 * @string: target string
 * Return: Encoded string
 */
-int format_rot13(va_list string)
+char *format_rot13(va_list argument)
 {
-	int x = 0, i = 0, length = 0; /*for iteration and return value*/
-	char abc[] = {"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"};
-	char rotabc[] = {"NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm"};
-	char *str, *encoded_str; /*for copying and encoding*/
+	int x = 0;
+	char *string, *encoded_string;
 
-	str = va_arg(string, char *);
+	string = va_arg(argument, char *);
 
-	for (x = 0; string[x] != '\0'; x++)
-		length++;
+	encoded_string = malloc (sizeof(char) * (_strlen(string) + 1));
 
-	encoded_str = malloc(sizeof(char) * length + 1);
+	if (encoded_string == NULL)
+		return (NULL);
 
-	if (!encoded_str)
-		return ('\0');
-	for (x = 0; x <= length; x++)
-		encoded_str[x] = str[x];
-	for (x = 0; encoded_str[x] != '\0'; x++)
+	while (string[x] != '\0')
 	{
-		for (i = 0; abc[i] != '\0'; i++)
+		if ((string[x] >= 'a' && string[x] <= 'm') || (string[x] >= 'A' && string[x] <= 'M'))
 		{
-			if (str[x] == abc[i])
-			{
-				encoded_str[x] = rotabc[i];
-				break;
-			}
+			encoded_string = string[x] + 13;
 		}
+		else if ((string[x] >= 'n' && string[x] <= 'z') || (string[x] >= 'N' && string[x] <= 'Z'))
+		{
+			encoded_string = string[x] - 13;
+		}
+		else 
+			(encoded_string[x] = string[x]);
+		x++;
 	}
-	for (x = 0; encoded_str[x]; x++)
-		write(1, &encoded_str[x], 1);
-	return(encoded_str);
+	encoded_string[x] = '\0';
+	return (encoded_string);
 }
 #endif	/* temporary exclusion of ROT13 */
 /**
