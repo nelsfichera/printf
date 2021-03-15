@@ -43,7 +43,7 @@ int output(char *string, char *buffer, int buffer_size, int start)
 	{
 		buffer[bi % buffer_size] = string[si];
 			if (++bi % buffer_size == 0) /* When full */
-				write(1, buffer, buffer_size); /* Empty buffer */
+				write(1, buffer, buffer_size); /* Print entire buffer */
 	}
 	return (bi - start);
 }
@@ -125,7 +125,7 @@ int _printf(const char *format, ...)
 
 	/* Empty the buffer */
 	write(1, buffer, byte_count % 1024);
-
+	free(char_to_string);
 	va_end(arguments);
 	return (byte_count);
 }
