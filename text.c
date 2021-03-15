@@ -1,5 +1,5 @@
 #include "holberton.h"
-#if 0
+
 /**
 * _strlen - gets the length of a string
 * @string: target string
@@ -13,6 +13,7 @@ int _strlen(char *string)
 		x++;
 	return (x);
 }
+#if 0
 /**
 * format_rot13 - encodes a string in ROT13
 * @string: target string
@@ -56,7 +57,7 @@ char *format_rot13(va_list argument)
 char *format_char(va_list argument)
 {
 	char *c = malloc(sizeof(char) * 2);
-	c[0] = va_arg(argument, char);
+	c[0] = va_arg(argument, int);
 	c[1] = '\0';
 	return (c);
 }
@@ -67,8 +68,15 @@ char *format_char(va_list argument)
  */
 char *format_string(va_list argument)
 {
+	int i;
 	char *string = va_arg(argument, char *);
-	return (string);
+	char *new_string;
+
+	new_string = malloc(_strlen(string) + 1);
+	for (i = 0; string[i]; i++)
+		new_string[i] = string[i];
+
+	return (new_string);
 }
 #if 0
 char *format_reverse(va_list argument)

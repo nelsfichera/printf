@@ -1,4 +1,5 @@
 #include "holberton.h"
+#include <stdio.h>
 
 /**
 * get_function - get the appropriate function
@@ -9,9 +10,9 @@ char *(*get_function(char n))(va_list)
 {
 	int x  = 0; /*for iteration*/
 	func_t func_table[] = {
-		/* {'c', format_char}, */
-		/* {'s', format_string}, */
-		/* {'%', format_percent}, */
+		{'c', format_char},
+		{'s', format_string},
+		{'%', format_percent},
 		{'d', format_decimal},
 		{'i', format_decimal},
 		/* {'b', format_binary}, */
@@ -33,10 +34,10 @@ char *(*get_function(char n))(va_list)
  * @string: any string to be buffered before writing to output
  * Return: Number of bytes copied to the buffer
  */
-int output(char *string, char *buffer, int buffer_size)
+int output(char *string, char *buffer, int buffer_size, int start)
 {
 	/* Indecies */
-	static int bi = 0; /* Static so it doesn't reset every time the function is called */
+	int bi = start; /* Starting index */
 	int si = 0;
 
 	for (; string[si]; si++)
@@ -45,7 +46,7 @@ int output(char *string, char *buffer, int buffer_size)
 			if (++bi % buffer_size == 0) /* When full */
 				write(1, buffer, buffer_size); /* Empty buffer */
 	}
-	return (bi);
+	return (bi - start);
 }
 
 /**
@@ -71,7 +72,9 @@ int _printf(const char *format, ...)
 /* formatted result of any format function */
 	char *formatted_string;
 	/* Storage to convert a char to a string */
-	char *char_to_string;
+	char *char_to_string = malloc(2);
+
+	char_to_string[1] = '\0';
 	va_start(arguments, format);
 	/* iterate over format string and search for format specifications */
 	for (x = 0; format[x]; x++)
@@ -88,11 +91,8 @@ int _printf(const char *format, ...)
 			else 	/* for all other characters, output them */
 			{
 				/* but output needs a string, not the actual char */
-				char_to_string = malloc(2);
-				char_to_string[0] = format[x];
-				char_to_string[1] = '\0';
-				output(char_to_string, buffer, 1024);
-				free(char_to_string);
+				*char_to_string = format[x];
+				byte_count += output(char_to_string, buffer, 1024, byte_count);
 			}
 		}
 		if (parse_format_mode)
@@ -102,15 +102,13 @@ int _printf(const char *format, ...)
 			format_function = get_function(format[x]);
 			formatted_string = format_function(arguments);
 /* That string goes to the buffer to be printed */
-			output(formatted_string, buffer, 1024);
+			byte_count += output(formatted_string, buffer, 1024, byte_count);
 			free(formatted_string);
 		/* Formatting complete, deactivate format mode */
 			parse_format_mode = 0;
 		}
 	}
 
-	/* Output remembers how many bytes it has printed */
-	byte_count = output("", buffer, 1024);
 	/* Empty the buffer */
 	write(1, buffer, byte_count % 1024);
 

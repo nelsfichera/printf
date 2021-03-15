@@ -5,8 +5,9 @@
 #include <unistd.h>	/* write */
 /*main printing functions*/
 char *(*getfunction(char n))(va_list);
-int output(char *string, char *buffer, int buffer_size);
+int output(char *string, char *buffer, int buffer_size, int start);
 int _printf(const char *format, ...);
+int _strlen(char * string);
 /**
 * struct functions - struct for calling functions
 * @type: identifies which function to use
@@ -25,4 +26,5 @@ char *format_octal(va_list argument);
 char *format_string(va_list);
 char *format_char(va_list argument);
 char *format_decimal(va_list);
+char *format_percent();
 #endif	/* HOLBERTON_H */
