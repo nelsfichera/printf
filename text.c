@@ -56,7 +56,7 @@ char *format_rot13(va_list argument)
 char *format_char(va_list argument)
 {
 	char *c = malloc(sizeof(char) * 2);
-	c[0] = va_arg(argument);
+	c[0] = va_arg(argument, char);
 	c[1] = '\0';
 	return (c);
 }
@@ -70,6 +70,7 @@ char *format_string(va_list argument)
 	char *string = va_arg(argument, char *);
 	return (string);
 }
+#if 0
 char *format_reverse(va_list argument)
 {
 	char *reverse;
@@ -91,3 +92,4 @@ char *format_reverse(va_list argument)
 	reverse[x] = '\0';
 	return (reverse);
 }
+#endif	/* Temp exluding format reverse for testing */
