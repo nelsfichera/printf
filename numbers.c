@@ -117,8 +117,3 @@ char *format_decimal(va_list argument)
 	}
 	return (formatted);
 }
-char *format_percent(va_list argument)
-{
-	char c = '%';
-	return (write(1 &c,1));
-}
