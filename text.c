@@ -74,6 +74,8 @@ char *format_string(va_list argument)
 	char *string = va_arg(argument, char *);
 	char *new_string;
 
+	if (string == NULL)
+		return (NULL);
 	new_string = malloc(_strlen(string) + 1);
 	if (new_string == NULL)
 		return (NULL);

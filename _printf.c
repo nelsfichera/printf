@@ -73,6 +73,8 @@ int _printf(const char *format, ...)
 	/* Storage to convert a char to a string */
 	char *char_to_string = malloc(2);
 
+	if (!format)
+		return (-1);
 	char_to_string[1] = '\0';
 	va_start(arguments, format);
 	/* iterate over format string and search for format specifications */
@@ -108,12 +110,13 @@ int _printf(const char *format, ...)
 			else
 			{
 				formatted_string = format_function(arguments);
-
-				/* if (!formatted_string) */
-				/* What to do if NULL???? */
-/* That string goes to the buffer to be printed */
-				byte_count += output(formatted_string, buffer, 1024, byte_count);
-				free(formatted_string);
+				if (!formatted_string) /* If the function returned NULL, print (null) */
+					byte_count += output("(null)", buffer, 1024, byte_count);
+				else
+				{/* That string goes to the buffer to be printed */
+					byte_count += output(formatted_string, buffer, 1024, byte_count);
+					free(formatted_string);
+				}
 				/* Formatting complete, deactivate format mode */
 			}
 			parse_format_mode = 0;
