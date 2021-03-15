@@ -1,5 +1,4 @@
 #include "holberton.h"
-#include <stdio.h>
 
 /**
 * get_function - get the appropriate function
@@ -100,11 +99,23 @@ int _printf(const char *format, ...)
 		/* Lookup and call format specifier interpreter func using get_function */
 	        /* Whichever function gets called should return a formatted string */
 			format_function = get_function(format[x]);
-			formatted_string = format_function(arguments);
+			if (!format_function)
+			{	/* No matching function was found; print %[char] */
+				*char_to_string = format[x];
+				byte_count += output("%", buffer, 1024, byte_count);
+				byte_count += output(char_to_string, buffer, 1024, byte_count);
+			}
+			else
+			{
+				formatted_string = format_function(arguments);
+
+				/* if (!formatted_string) */
+				/* What to do if NULL???? */
 /* That string goes to the buffer to be printed */
-			byte_count += output(formatted_string, buffer, 1024, byte_count);
-			free(formatted_string);
-		/* Formatting complete, deactivate format mode */
+				byte_count += output(formatted_string, buffer, 1024, byte_count);
+				free(formatted_string);
+				/* Formatting complete, deactivate format mode */
+			}
 			parse_format_mode = 0;
 		}
 	}
