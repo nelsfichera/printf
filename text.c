@@ -36,8 +36,7 @@ int format_rot13(va_list string)
 	}
 	for (x = 0; encoded_str[x]; x++)
 		write(1, &encoded_str[x], 1);
-	free(encoded_str);
-	return (length);
+	return(encoded_str);
 }
 #endif	/* temporary exclusion of ROT13 */
 /**
@@ -47,10 +46,11 @@ int format_rot13(va_list string)
 */
 char *format_char(va_list argument)
 {
-	char *c = va_arg(c);
+	char *c = malloc(sizeof(char) * 2);
+	c[0] = va_arg(argument);
+	c[1] = '\0';
 	return (c);
 }
-
 /**
  * format_string - Prints an argument as a string
  * @string: String argument
