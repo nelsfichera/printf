@@ -12,6 +12,7 @@ int _strlen(char *string)
 		x++;
 	return (x);
 }
+#if 0
 /**
 * format_rot13 - encodes a string in ROT13
 * @argument: target string
@@ -46,6 +47,7 @@ char *format_rot13(va_list argument)
 	encoded_string[x] = '\0';
 	return (encoded_string);
 }
+#endif
 /**
 * format_char - prints a char arg
 * @argument: the arg being passed
@@ -92,10 +94,10 @@ char *format_reverse(va_list argument)
 	char *string;
 	int x, n, length = 0;
 
-	string = va_arg(list, char *);
+	string = va_arg(argument, char *);
 	if (string == NULL)
 		return (NULL);
-	length = _strlen(str);
+	length = _strlen(string);
 
 	reverse = malloc(sizeof(char) * (length + 1));
 	if (reverse == NULL)
