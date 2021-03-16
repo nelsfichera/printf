@@ -71,7 +71,7 @@ int _printf(const char *format, ...)
 /* formatted result of any format function */
 	char *formatted_string;
 	/* Storage to convert a char to a string */
-	char *char_to_string = malloc(2);
+	char char_to_string[2];
 
 	if (!format)
 		return (-1);
@@ -92,7 +92,7 @@ int _printf(const char *format, ...)
 			else 	/* for all other characters, output them */
 			{
 				/* but output needs a string, not the actual char */
-				*char_to_string = format[x];
+				char_to_string[0] = format[x];
 				byte_count += output(char_to_string, buffer, 1024, byte_count);
 			}
 		}
@@ -103,7 +103,7 @@ int _printf(const char *format, ...)
 			format_function = get_function(format[x]);
 			if (!format_function)
 			{	/* No matching function was found; print %[char] */
-				*char_to_string = format[x];
+				char_to_string[0] = format[x];
 				byte_count += output("%", buffer, 1024, byte_count);
 				byte_count += output(char_to_string, buffer, 1024, byte_count);
 			}
@@ -125,7 +125,6 @@ int _printf(const char *format, ...)
 
 	/* Empty the buffer */
 	write(1, buffer, byte_count % 1024);
-	free(char_to_string);
 	va_end(arguments);
 	return (byte_count);
 }
