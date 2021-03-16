@@ -65,9 +65,9 @@ char *format_octal(va_list argument)
 		i *= -1;
 	}
 	/*split and convert*/
-	while (k > 1)
+	while (n > 1)
 	{
-		k /= 8;
+		n /= 8;
 		split *= 8;
 	}
 	while (split > 0)
