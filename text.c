@@ -1,5 +1,4 @@
 #include "holberton.h"
-
 /**
 * _strlen - gets the length of a string
 * @string: target string
@@ -13,10 +12,9 @@ int _strlen(char *string)
 		x++;
 	return (x);
 }
-#if 0
 /**
 * format_rot13 - encodes a string in ROT13
-* @string: target string
+* @argument: target string
 * Return: Encoded string
 */
 char *format_rot13(va_list argument)
@@ -26,37 +24,39 @@ char *format_rot13(va_list argument)
 
 	string = va_arg(argument, char *);
 
-	encoded_string = malloc (sizeof(char) * (_strlen(string) + 1));
+	encoded_string = malloc(sizeof(char) * (_strlen(string) + 1));
 
 	if (encoded_string == NULL)
 		return (NULL);
 
 	while (string[x] != '\0')
 	{
-		if ((string[x] >= 'a' && string[x] <= 'm') || (string[x] >= 'A' && string[x] <= 'M'))
+		if ((string[x] >= 'a' && string[x] <= 'm') ||
+				(string[x] >= 'A' && string[x] <= 'M'))
 		{
 			encoded_string = string[x] + 13;
 		}
-		else if ((string[x] >= 'n' && string[x] <= 'z') || (string[x] >= 'N' && string[x] <= 'Z'))
+		else if ((string[x] >= 'n' && string[x] <= 'z') ||
+				(string[x] >= 'N' && string[x] <= 'Z'))
 		{
 			encoded_string = string[x] - 13;
 		}
-		else 
+		else
 			(encoded_string[x] = string[x]);
 		x++;
 	}
 	encoded_string[x] = '\0';
 	return (encoded_string);
 }
-#endif	/* temporary exclusion of ROT13 */
 /**
-* format_char: prints a char arg
+* format_char - prints a char arg
 * @argument: the arg being passed
 * Return: pointer to char
 */
 char *format_char(va_list argument)
 {
 	char *c = malloc(sizeof(char) * 2);
+
 	if (c == NULL)
 		return (NULL);
 	c[0] = va_arg(argument, int);
@@ -65,7 +65,7 @@ char *format_char(va_list argument)
 }
 /**
  * format_string - Prints an argument as a string
- * @string: String argument
+ * @argument: String argument
  * Return: Pointer to string
  */
 char *format_string(va_list argument)
@@ -83,18 +83,21 @@ char *format_string(va_list argument)
 		new_string[i] = string[i];
 	return (new_string);
 }
-#if 0
+/**
+* format_reverse - Prints an argument string in reverse
+* @argument: the argument
+* Return: pointer to string
+*/
 char *format_reverse(va_list argument)
 {
 	char *reverse;
 	char *string;
 	int x, n, length = 0;
 
-	string = va_arg (list, char *);
+	string = va_arg(list, char *);
 	if (string == NULL)
 		return (NULL);
-	/*Figure out how we are going to deal with str length*/
-	/*length = _strlen(str);*/
+	length = _strlen(str);
 
 	reverse = malloc(sizeof(char) * (length + 1));
 	if (reverse == NULL)
@@ -105,4 +108,3 @@ char *format_reverse(va_list argument)
 	reverse[x] = '\0';
 	return (reverse);
 }
-#endif	/* Temp exluding format reverse for testing */
