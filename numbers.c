@@ -16,6 +16,11 @@ char *format_binary(va_list argument)
 	binary = malloc(sizeof(char) * 33);
 	if (binary == NULL)
 		return (NULL);
+	if (n == 0)
+	{
+		binary[0] = '0';
+		binary[1] = '\0';
+	}
 	/*negative numbers*/
 	if (n < 0)
 	{
@@ -25,11 +30,12 @@ char *format_binary(va_list argument)
 		i *= -1;
 	}
 	/*split and convert*/
-	while (n > 1)
+	while (n > 0)
 	{
 		n /= 2;
 		split *= 2;
 	}
+	split /= 2;
 	while (split > 0)
 	{
 		binary[x++] = (i / split + '0');
