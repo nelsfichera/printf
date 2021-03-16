@@ -115,6 +115,7 @@ char *format_decimal(va_list argument)
 	}
 	return (formatted);
 }
+#if 0
 char *format_unsigned(va_list argument)
 {
 	unsigned int number = va_arg(argument, int);
@@ -130,7 +131,7 @@ char *format_unsigned(va_list argument)
 	if (!formatted)
 		return(NULL);
 	formatted[digits--] = '\0';
-	
+
 	for (; digits >= 0; digits--)
 	{
 		temp = number % 10;
@@ -139,6 +140,7 @@ char *format_unsigned(va_list argument)
 	}
 	return(formatted);
 }
+#endif	/* exclude format_unsigned for testing */
 /**
  * format_percent - returns "%"
  * Return: % in string format
