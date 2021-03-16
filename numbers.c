@@ -115,32 +115,27 @@ char *format_decimal(va_list argument)
 	}
 	return (formatted);
 }
-char *format_unsigned (va_list argument)
+char *format_unsigned(va_list argument)
 {
-	unsigned int = va_arg(argument, int);
-	int digits, temp = integer;
-	int limit = 0;
+	unsigned int number = va_arg(argument, int);
+	int digits, temp = number;
 	char *formatted;
 
-	for (digits - 0; temp != 0; digits++)
+	for (digits = 0; temp != 0; digits++)
 		temp /= 10;
-	if (integer <= 0)
-		digits++;
+	if (number < 0)
+		number *= -1;
+
 	formatted = malloc(digits + 1);
 	if (!formatted)
 		return(NULL);
-
 	formatted[digits--] = '\0';
-	if (integer < 0)
+	
+	for (; digits >= 0; digits--)
 	{
-		formatted [0] = '-';
-		limit = 1;
-	}
-	for (; digits >= limit; digits--)
-	{
-		temp = integer % 10;
+		temp = number % 10;
 		formatted[digits] = temp < 0 ? -temp + '0' : temp + '0';
-		integer /= 10;
+		number /= 10;
 	}
 	return(formatted);
 }
