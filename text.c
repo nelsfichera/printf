@@ -12,7 +12,6 @@ int _strlen(char *string)
 		x++;
 	return (x);
 }
-#if 0
 /**
 * format_rot13 - encodes a string in ROT13
 * @argument: target string
@@ -20,34 +19,23 @@ int _strlen(char *string)
 */
 char *format_rot13(va_list argument)
 {
-	int x = 0;
-	char *string, *encoded_string;
-
-	string = va_arg(argument, char *);
-
-	encoded_string = malloc(sizeof(char) * (_strlen(string) + 1));
-
-	if (encoded_string == NULL)
-		return (NULL);
-
-	while (string[x] != '\0')
+	char *rot = va_arg(argument, char *);
+	int x = 0, y = 0;
+	char abc [] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+	char rotabc [] = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
+	for (x = 0; rot[x] != '\0'; x++;)
 	{
-		if ((string[x] >= 'a' && string[x] <= 'm') || (string[x] >= 'A' && string[x] <= 'M'))
+		for (y = 0; abc[y] != '\0'; y++)
 		{
-			encoded_string[x] = string[x + 13];
+			if rot[x] == abc[y])
+			{
+				rot[x] = rotabc[y];
+				break;
+			}
 		}
-		else if ((string[x] >= 'n' && string[x] <= 'z') || (string[x] >= 'N' && string[x] <= 'Z'))
-		{
-			encoded_string[x] = string[x - 13];
-		}
-		else
-			(encoded_string[x] = string[x]);
-		x++;
 	}
-	encoded_string[x] = '\0';
-	return (encoded_string);
+	return (rot);
 }
-#endif
 /**
 * format_char - prints a char arg
 * @argument: the arg being passed
