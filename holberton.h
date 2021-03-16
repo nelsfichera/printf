@@ -3,11 +3,7 @@
 #include <stdlib.h>	/* malloc, free */
 #include <stdarg.h>	/* vargs */
 #include <unistd.h>	/* write */
-/*main printing functions*/
-char *(*getfunction(char n))(va_list);
-int output(char *string, char *buffer, int buffer_size, int start, int mode);
-int _printf(const char *format, ...);
-int _strlen(char *string);
+
 /**
 * struct functions - struct for calling functions
 * @type: identifies which function to use
@@ -19,14 +15,22 @@ typedef struct functions
 	 char *(*function)(va_list);
 
 } func_t;
+
+/*main printing functions*/
+char *(*getfunction(char n))(va_list);
+int output(char *string, char *buffer, int buffer_size, int start, int mode);
+int _printf(const char *format, ...);
+int _strlen(char *string);
+
 /*functions being called by type*/
-char *format_rot13(va_list argument);
-char *format_binary(va_list argument);
-char *format_octal(va_list argument);
-char *format_string(va_list);
-char *format_char(va_list argument);
+char *format_binary(va_list);
+char *format_char(va_list);
 char *format_decimal(va_list);
-char *format_unsigned(va_list);
-char *format_hex(va_list argument);
+char *format_hex(va_list);
+char *format_octal(va_list);
 char *format_percent();
+char *format_reverse(va_list);
+char *format_rot13(va_list);
+char *format_string(va_list);
+char *format_unsigned(va_list);
 #endif	/* HOLBERTON_H */
