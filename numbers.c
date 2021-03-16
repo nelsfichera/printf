@@ -57,14 +57,6 @@ char *format_octal(va_list argument)
 	octal = malloc(sizeof(char) * 12);
 	if (octal == NULL)
 		return (NULL);
-	/*negatives*/
-	if (n < 0)
-	{
-		octal[0] = 1 + '0';
-		x++;
-		n *= -1;
-		i *= -1;
-	}
 	/*split and convert*/
 	while (n > 1)
 	{
