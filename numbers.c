@@ -46,12 +46,12 @@ char *format_binary(va_list argument)
 */
 char *format_octal(va_list argument)
 {
-	unsigned int x = 0, 
+	unsigned int x = 0;
 	unsigned int i, n;
 	int split = 1;
 	char *octal;
 
-	n = va_arg(argument, int);
+	n = va_arg(argument, unsigned int);
 	i = n;
 	/*malloc up to max octal int*/
 	octal = malloc(sizeof(char) * 12);
