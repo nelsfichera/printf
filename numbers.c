@@ -124,6 +124,12 @@ char *format_decimal(va_list argument)
 	return (formatted);
 }
 #if 0
+
+/**
+ * format_unsigned - converts an unsigned int to a string
+ * @argument: unsigned int to convert
+ * Return: string format unsigned int
+ */
 char *format_unsigned(va_list argument)
 {
 	unsigned int number = va_arg(argument, int);
