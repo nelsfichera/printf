@@ -83,7 +83,7 @@ char *format_octal(va_list argument)
 }
 /**
  * format_decimal - converts an int to a string
- * @argument: pointer to va_list arg which will be interpreted as an int
+ * @argument: int to convert
  * Return: string format integer
  */
 char *format_decimal(va_list argument)
@@ -128,7 +128,7 @@ char *format_unsigned(va_list argument)
 		temp /= 10;
 	formatted = malloc(digits + 1);
 	if (!formatted)
-		return(NULL);
+		return (NULL);
 	formatted[digits--] = '\0';
 
 	for (; digits >= 0; digits--)
@@ -137,7 +137,7 @@ char *format_unsigned(va_list argument)
 		formatted[digits] = temp < 0 ? -temp + '0' : temp + '0';
 		number /= 10;
 	}
-	return(formatted);
+	return (formatted);
 }
 #endif	/* exclude format_unsigned for testing */
 /**
@@ -146,7 +146,8 @@ char *format_unsigned(va_list argument)
  */
 char *format_percent()
 {
-	char *c = malloc(sizeof(char)* 2);
+	char *c = malloc(sizeof(char) * 2);
+
 	if (c == NULL)
 		return (NULL);
 	c[0] = '%';
