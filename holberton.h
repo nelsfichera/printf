@@ -26,5 +26,7 @@ char *format_octal(va_list argument);
 char *format_string(va_list);
 char *format_char(va_list argument);
 char *format_decimal(va_list);
+char *format_unsigned(va_list);
+char *format_hex(va_list argument);
 char *format_percent();
 #endif	/* HOLBERTON_H */
