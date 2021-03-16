@@ -83,6 +83,7 @@ char *format_string(va_list argument)
 		new_string[i] = string[i];
 	return (new_string);
 }
+#if 0
 /**
 * format_reverse - Prints an argument string in reverse
 * @argument: the argument
@@ -108,3 +109,4 @@ char *format_reverse(va_list argument)
 	reverse[x] = '\0';
 	return (reverse);
 }
+#endif
