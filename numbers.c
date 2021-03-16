@@ -46,7 +46,8 @@ char *format_binary(va_list argument)
 */
 char *format_octal(va_list argument)
 {
-	int x = 0, i = 0, n = 0;
+	unsigned int x = 0, 
+	unsigned int i, n;
 	int split = 1;
 	char *octal;
 
