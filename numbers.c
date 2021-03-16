@@ -123,9 +123,6 @@ char *format_unsigned(va_list argument)
 
 	for (digits = 0; temp != 0; digits++)
 		temp /= 10;
-	if (number < 0)
-		number *= -1;
-
 	formatted = malloc(digits + 1);
 	if (!formatted)
 		return(NULL);
