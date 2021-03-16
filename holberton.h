@@ -7,7 +7,7 @@
 char *(*getfunction(char n))(va_list);
 int output(char *string, char *buffer, int buffer_size, int start, int mode);
 int _printf(const char *format, ...);
-int _strlen(char * string);
+int _strlen(char *string);
 /**
 * struct functions - struct for calling functions
 * @type: identifies which function to use
