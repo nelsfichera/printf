@@ -63,12 +63,17 @@ char *format_octal(va_list argument)
 		n /= 8;
 		split *= 8;
 	}
+
+	split /= 8;
+
 	while (split > 0)
 	{
 		octal[x++] = (i / split + '0');
 		i %= split;
 		split /= 8;
 	}
+	if (n == 0)
+		octal[0] = '0';
 	octal[x] = '\0';
 	return (octal);
 }
