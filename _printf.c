@@ -19,8 +19,6 @@ char *(*get_function(char n))(va_list)
 		{'r', format_reverse},
 		{'o', format_octal},
 		{'u', format_unsigned},
-		/* {'x', format_hex}, */
-		/* {'X', format_hex}, */
 		{'\0', NULL}
 	};
 	while (func_table[x].type != '\0')
