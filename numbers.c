@@ -115,17 +115,19 @@ char *format_decimal(va_list argument)
 		formatted[digits] = temp < 0 ? -temp + '0' : temp + '0';
 		integer /= 10;
 	}
-	if (formatted == NULL)
-		return(NULL);
 	return (formatted);
 }
 
+/**
+ * format_percent - returns "%"
+ * Return: % in string format
+ */
 char *format_percent()
 {
 	char *c = malloc(sizeof(char)* 2);
-		c[0] = '%';
-		c[1] = '\0';
 	if (c == NULL)
 		return (NULL);
-		return (c);
+	c[0] = '%';
+	c[1] = '\0';
+	return (c);
 }

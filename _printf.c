@@ -1,5 +1,4 @@
 #include "holberton.h"
-#include <stdio.h>
 
 /**
 * get_function - get the appropriate function
@@ -44,7 +43,7 @@ int output(char *string, char *buffer, int buffer_size, int start)
 	{
 		buffer[bi % buffer_size] = string[si];
 			if (++bi % buffer_size == 0) /* When full */
-				write(1, buffer, buffer_size); /* Empty buffer */
+				write(1, buffer, buffer_size); /* Print entire buffer */
 	}
 	return (bi - start);
 }
@@ -74,6 +73,8 @@ int _printf(const char *format, ...)
 	/* Storage to convert a char to a string */
 	char *char_to_string = malloc(2);
 
+	if (!format)
+		return (-1);
 	char_to_string[1] = '\0';
 	va_start(arguments, format);
 	/* iterate over format string and search for format specifications */
@@ -100,18 +101,31 @@ int _printf(const char *format, ...)
 		/* Lookup and call format specifier interpreter func using get_function */
 	        /* Whichever function gets called should return a formatted string */
 			format_function = get_function(format[x]);
-			formatted_string = format_function(arguments);
-/* That string goes to the buffer to be printed */
-			byte_count += output(formatted_string, buffer, 1024, byte_count);
-			free(formatted_string);
-		/* Formatting complete, deactivate format mode */
+			if (!format_function)
+			{	/* No matching function was found; print %[char] */
+				*char_to_string = format[x];
+				byte_count += output("%", buffer, 1024, byte_count);
+				byte_count += output(char_to_string, buffer, 1024, byte_count);
+			}
+			else
+			{
+				formatted_string = format_function(arguments);
+				if (!formatted_string) /* If the function returned NULL, print (null) */
+					byte_count += output("(null)", buffer, 1024, byte_count);
+				else
+				{/* That string goes to the buffer to be printed */
+					byte_count += output(formatted_string, buffer, 1024, byte_count);
+					free(formatted_string);
+				}
+				/* Formatting complete, deactivate format mode */
+			}
 			parse_format_mode = 0;
 		}
 	}
 
 	/* Empty the buffer */
 	write(1, buffer, byte_count % 1024);
-
+	free(char_to_string);
 	va_end(arguments);
 	return (byte_count);
 }
