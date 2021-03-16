@@ -16,6 +16,11 @@ char *format_binary(va_list argument)
 	binary = malloc(sizeof(char) * 33);
 	if (binary == NULL)
 		return (NULL);
+	if (n == 0)
+	{
+		binary[0] = '0';
+		binary[1] = '\0';
+	}
 	/*negative numbers*/
 	if (n < 0)
 	{
@@ -25,11 +30,12 @@ char *format_binary(va_list argument)
 		i *= -1;
 	}
 	/*split and convert*/
-	while (n > 1)
+	while (n > 0)
 	{
 		n /= 2;
 		split *= 2;
 	}
+	split /= 2;
 	while (split > 0)
 	{
 		binary[x++] = (i / split + '0');
@@ -46,30 +52,32 @@ char *format_binary(va_list argument)
 */
 char *format_octal(va_list argument)
 {
-	int x = 0, i = 0, n = 0;
+	unsigned int x = 0;
+	unsigned int i, n;
 	int split = 1;
 	char *octal;
 
-	n = va_arg(argument, int);
+	n = va_arg(argument, unsigned int);
 	i = n;
 	/*malloc up to max octal int*/
 	octal = malloc(sizeof(char) * 12);
 	if (octal == NULL)
 		return (NULL);
-	/*negatives*/
-	if (n < 0)
+	if (n == 0)
 	{
-		octal[0] = 1 + '0';
-		x++;
-		n *= -1;
-		i *= -1;
+		octal[0] = '0';
+		octal[1] = '\0';
+		return (octal);
 	}
 	/*split and convert*/
-	while (n > 1)
+	while (n > 0)
 	{
 		n /= 8;
 		split *= 8;
 	}
+
+	split /= 8;
+
 	while (split > 0)
 	{
 		octal[x++] = (i / split + '0');
@@ -81,7 +89,7 @@ char *format_octal(va_list argument)
 }
 /**
  * format_decimal - converts an int to a string
- * @argument: pointer to va_list arg which will be interpreted as an int
+ * @argument: int to convert
  * Return: string format integer
  */
 char *format_decimal(va_list argument)
@@ -115,7 +123,12 @@ char *format_decimal(va_list argument)
 	}
 	return (formatted);
 }
-#if 0
+
+/**
+ * format_unsigned - converts an unsigned int to a string
+ * @argument: unsigned int to convert
+ * Return: string format unsigned int
+ */
 char *format_unsigned(va_list argument)
 {
 	unsigned int number = va_arg(argument, int);
@@ -124,12 +137,9 @@ char *format_unsigned(va_list argument)
 
 	for (digits = 0; temp != 0; digits++)
 		temp /= 10;
-	if (number < 0)
-		number *= -1;
-
 	formatted = malloc(digits + 1);
 	if (!formatted)
-		return(NULL);
+		return (NULL);
 	formatted[digits--] = '\0';
 
 	for (; digits >= 0; digits--)
@@ -138,16 +148,17 @@ char *format_unsigned(va_list argument)
 		formatted[digits] = temp < 0 ? -temp + '0' : temp + '0';
 		number /= 10;
 	}
-	return(formatted);
+	return (formatted);
 }
-#endif	/* exclude format_unsigned for testing */
+
 /**
  * format_percent - returns "%"
  * Return: % in string format
  */
 char *format_percent()
 {
-	char *c = malloc(sizeof(char)* 2);
+	char *c = malloc(sizeof(char) * 2);
+
 	if (c == NULL)
 		return (NULL);
 	c[0] = '%';

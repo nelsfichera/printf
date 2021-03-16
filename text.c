@@ -1,5 +1,4 @@
 #include "holberton.h"
-
 /**
 * _strlen - gets the length of a string
 * @string: target string
@@ -13,50 +12,45 @@ int _strlen(char *string)
 		x++;
 	return (x);
 }
-#if 0
 /**
 * format_rot13 - encodes a string in ROT13
-* @string: target string
+* @argument: target string
 * Return: Encoded string
 */
 char *format_rot13(va_list argument)
 {
-	int x = 0;
-	char *string, *encoded_string;
+	char *rot = va_arg(argument, char *);
+	int x = 0, y = 0;
+	char *rotated;
+	char abc[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+	char rotabc[] = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
 
-	string = va_arg(argument, char *);
-
-	encoded_string = malloc (sizeof(char) * (_strlen(string) + 1));
-
-	if (encoded_string == NULL)
-		return (NULL);
-
-	while (string[x] != '\0')
+	rotated = malloc(sizeof(_strlen(rot) + 1));
+	for (x = 0; rot[x] != '\0'; x++)
 	{
-		if ((string[x] >= 'a' && string[x] <= 'm') || (string[x] >= 'A' && string[x] <= 'M'))
+		for (y = 0; abc[y] != '\0'; y++)
 		{
-			encoded_string = string[x] + 13;
+			if (rot[x] == abc[y])
+			{
+				rot[x] = rotabc[y];
+				break;
+			}
 		}
-		else if ((string[x] >= 'n' && string[x] <= 'z') || (string[x] >= 'N' && string[x] <= 'Z'))
-		{
-			encoded_string = string[x] - 13;
-		}
-		else 
-			(encoded_string[x] = string[x]);
-		x++;
 	}
-	encoded_string[x] = '\0';
-	return (encoded_string);
+	rotated[_strlen(rot)] = '\0';
+	for (x = 0; rotated[x]; x++)
+		rotated[x] = rot[x];
+	return (rotated);
 }
-#endif	/* temporary exclusion of ROT13 */
 /**
-* format_char: prints a char arg
+* format_char - prints a char arg
 * @argument: the arg being passed
 * Return: pointer to char
 */
 char *format_char(va_list argument)
 {
 	char *c = malloc(sizeof(char) * 2);
+
 	if (c == NULL)
 		return (NULL);
 	c[0] = va_arg(argument, int);
@@ -65,7 +59,7 @@ char *format_char(va_list argument)
 }
 /**
  * format_string - Prints an argument as a string
- * @string: String argument
+ * @argument: String argument
  * Return: Pointer to string
  */
 char *format_string(va_list argument)
@@ -83,18 +77,22 @@ char *format_string(va_list argument)
 		new_string[i] = string[i];
 	return (new_string);
 }
-#if 0
+
+/**
+* format_reverse - Prints an argument string in reverse
+* @argument: the argument
+* Return: pointer to string
+*/
 char *format_reverse(va_list argument)
 {
 	char *reverse;
 	char *string;
 	int x, n, length = 0;
 
-	string = va_arg (list, char *);
+	string = va_arg(argument, char *);
 	if (string == NULL)
 		return (NULL);
-	/*Figure out how we are going to deal with str length*/
-	/*length = _strlen(str);*/
+	length = _strlen(string);
 
 	reverse = malloc(sizeof(char) * (length + 1));
 	if (reverse == NULL)
@@ -105,4 +103,3 @@ char *format_reverse(va_list argument)
 	reverse[x] = '\0';
 	return (reverse);
 }
-#endif	/* Temp exluding format reverse for testing */
