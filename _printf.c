@@ -15,9 +15,10 @@ char *(*get_function(char n))(va_list)
 		{'d', format_decimal},
 		{'i', format_decimal},
 		{'b', format_binary},
-		/* {'R', format_rot13}, */
+		{'R', format_rot13},
+		{'r', format_reverse},
 		{'o', format_octal},
-		/* {'u', format_unsigned}, */
+		{'u', format_unsigned},
 		/* {'x', format_hex}, */
 		/* {'X', format_hex}, */
 		{'\0', NULL}

@@ -123,7 +123,6 @@ char *format_decimal(va_list argument)
 	}
 	return (formatted);
 }
-#if 0
 
 /**
  * format_unsigned - converts an unsigned int to a string
@@ -151,7 +150,7 @@ char *format_unsigned(va_list argument)
 	}
 	return (formatted);
 }
-#endif	/* exclude format_unsigned for testing */
+
 /**
  * format_percent - returns "%"
  * Return: % in string format

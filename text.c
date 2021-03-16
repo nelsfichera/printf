@@ -25,7 +25,7 @@ char *format_rot13(va_list argument)
 	char abc[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 	char rotabc[] = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
 
-	rotated = malloc(sizeof(strlen(rot) + 1));
+	rotated = malloc(sizeof(_strlen(rot) + 1));
 	for (x = 0; rot[x] != '\0'; x++)
 	{
 		for (y = 0; abc[y] != '\0'; y++)
@@ -37,7 +37,7 @@ char *format_rot13(va_list argument)
 			}
 		}
 	}
-	rotated[strlen(rot)] = '\0';
+	rotated[_strlen(rot)] = '\0';
 	for (x = 0; rotated[x]; x++)
 		rotated[x] = rot[x];
 	return (rotated);
