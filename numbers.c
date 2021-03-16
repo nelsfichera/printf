@@ -1,5 +1,4 @@
 #include "holberton.h"
-#if 0
 /**
 * format_binary - changes an int to binary
 * @argument: the integer to change
@@ -66,9 +65,9 @@ char *format_octal(va_list argument)
 		i *= -1;
 	}
 	/*split and convert*/
-	while (k > 1)
+	while (n > 1)
 	{
-		k /= 8;
+		n /= 8;
 		split *= 8;
 	}
 	while (split > 0)
@@ -80,7 +79,6 @@ char *format_octal(va_list argument)
 	octal[x] = '\0';
 	return (octal);
 }
-#endif
 /**
  * format_decimal - converts an int to a string
  * @argument: pointer to va_list arg which will be interpreted as an int
@@ -117,7 +115,35 @@ char *format_decimal(va_list argument)
 	}
 	return (formatted);
 }
+char *format_unsigned (va_list argument)
+{
+	unsigned int = va_arg(argument, int);
+	int digits, temp = integer;
+	int limit = 0;
+	char *formatted;
 
+	for (digits - 0; temp != 0; digits++)
+		temp /= 10;
+	if (integer <= 0)
+		digits++;
+	formatted = malloc(digits + 1);
+	if (!formatted)
+		return(NULL);
+
+	formatted[digits--] = '\0';
+	if (integer < 0)
+	{
+		formatted [0] = '-';
+		limit = 1;
+	}
+	for (; digits >= limit; digits--)
+	{
+		temp = integer % 10;
+		formatted[digits] = temp < 0 ? -temp + '0' : temp + '0';
+		integer /= 10;
+	}
+	return(formatted);
+}
 /**
  * format_percent - returns "%"
  * Return: % in string format
