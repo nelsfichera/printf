@@ -14,9 +14,12 @@ char *(*get_function(char n))(va_list)
 		{'%', format_percent},
 		{'d', format_decimal},
 		{'i', format_decimal},
-		/* {'b', format_binary}, */
-		/* {'R', format_rot13}, */
-		/* {'o', format_octal}, */
+		{'b', format_binary},
+		{'R', format_rot13},
+		{'o', format_octal},
+		{'u', format_unsigned},
+		{'x', format_hex},
+		{'X', format_hex},
 		{'\0', NULL}
 	};
 	while (func_table[x].type != '\0')

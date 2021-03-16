@@ -1,0 +1,63 @@
+. This is the manpage of Justin and Nels' _printf
+.TH: _PRINTF "1" "March 17, 2021" "_printf man page"
+.SH NAME
+.B _printf
+-formats and prints data
+.SH SYNOPSIS
+.B #include "holberton.h"
+.sp
+int _printf(const char *format, ...);
+.SH DESCRIPTION
+_printf is mimcs aspects of printf in the standard library and writes output to
+.I stdout
+, the standard output, formatted according to the flag characters listed below.
+.SS Return value
+This function returns the number of bytes printed, which is equivalent to the number of characters printed excluding the null byte.
+.SS The Format String
+The format string is a character string composed of normal characters, and flag characters which specify format convertion, introduced by the % character.
+.SH FLAG CHARACTERS
+.sp
+	%c Prints a single character.
+.sp
+	%s Prints a string.
+.sp
+	%% Uses the initial % to escape, and the second % to print the % symbol.
+.sp
+	%d, %i Prints an integer using typical base 10 notation.
+.sp
+	%u Prints an unsigned integer using typical base 10 notation.
+.sp
+	%b Prints an integer converted into binary notation.
+.sp
+	%o Prints an integer converted into octal notation.
+.sp
+	%R Prints a string encoded in ROT13.
+.sp
+	%r Prints a string in reverse.
+.SH NOTES
+This custom printf function does not yet handle other
+.I Flags, field width, precision or length modifiers.
+.SH EXAMPLE
+To print characters & strings:
+.sp
+.RS
+#include <files at the main branch of this repository>
+.RE
+.RS
+_printf("Let's print %c %s\n", 'H', "olberton School");
+.RE
+.sp
+To print decimal integers:
+.sp
+.RS
+#include <as above>
+.RE
+.RS
+_printf("Nels is %d and Justin is %i years old\n", 27, -24);
+.RE
+.SH BUGS
+Does not yet convert into hexidecimal notation, print pointer addresses in hex, or deal with other modifiers typical to printf.
+.SH SEE ALSO
+.I printf(3)
+.SH AUTHOR
+Justin Masayda and Nels Fichera
