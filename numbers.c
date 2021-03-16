@@ -58,7 +58,7 @@ char *format_octal(va_list argument)
 	if (octal == NULL)
 		return (NULL);
 	/*split and convert*/
-	while (n > 1)
+	while (n > 0)
 	{
 		n /= 8;
 		split *= 8;
