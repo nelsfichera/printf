@@ -31,13 +31,11 @@ char *format_rot13(va_list argument)
 
 	while (string[x] != '\0')
 	{
-		if ((string[x] >= 'a' && string[x] <= 'm') ||
-				(string[x] >= 'A' && string[x] <= 'M'))
+		if ((string[x] >= 'a' && string[x] <= 'm') || (string[x] >= 'A' && string[x] <= 'M'))
 		{
 			encoded_string[x] = string[x + 13];
 		}
-		else if ((string[x] >= 'n' && string[x] <= 'z') ||
-				(string[x] >= 'N' && string[x] <= 'Z'))
+		else if ((string[x] >= 'n' && string[x] <= 'z') || (string[x] >= 'N' && string[x] <= 'Z'))
 		{
 			encoded_string[x] = string[x - 13];
 		}
