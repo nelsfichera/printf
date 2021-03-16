@@ -23,11 +23,11 @@ char *format_rot13(va_list argument)
 	int x = 0, y = 0;
 	char abc [] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 	char rotabc [] = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
-	for (x = 0; rot[x] != '\0'; x++;)
+	for (x = 0; rot[x] != '\0'; x++)
 	{
 		for (y = 0; abc[y] != '\0'; y++)
 		{
-			if rot[x] == abc[y])
+			if (rot[x] == abc[y])
 			{
 				rot[x] = rotabc[y];
 				break;
@@ -71,7 +71,7 @@ char *format_string(va_list argument)
 		new_string[i] = string[i];
 	return (new_string);
 }
-#if 0
+
 /**
 * format_reverse - Prints an argument string in reverse
 * @argument: the argument
@@ -97,4 +97,3 @@ char *format_reverse(va_list argument)
 	reverse[x] = '\0';
 	return (reverse);
 }
-#endif
