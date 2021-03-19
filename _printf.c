@@ -95,7 +95,7 @@ int _printf(const char *format, ...)
 	{
 		if (!parse_format_mode)
 		{
-			if (format[x] == '%' && format[x + 1] != '\0')
+			if (format[x] == '%')
 				parse_format_mode = 1;
 			else
 				byte_count += output(buffer, 1024, byte_count, 1, format[x]);
@@ -120,5 +120,5 @@ int _printf(const char *format, ...)
 	if (byte_count % 1024 != 0)
 		write(1, buffer, byte_count % 1024);
 	va_end(arguments);
-	return (byte_count);
+	return (parse_format_mode ? -1 : byte_count);
 }
